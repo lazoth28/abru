@@ -208,11 +208,6 @@
       gap: 20px;
     }
 
-    /* Featured first card spans 2 rows */
-    .photo-card:first-child {
-      grid-row: span 2;
-    }
-
     .photo-card {
       position: relative;
       border-radius: var(--radius);
@@ -229,11 +224,6 @@
       height: 100%;
       min-height: 260px;
       overflow: hidden;
-    }
-
-    /* First (featured) card fills 2 rows naturally */
-    .photo-card:first-child .img-wrap {
-      min-height: 540px;
     }
 
     .photo-card img {
@@ -582,13 +572,7 @@
       .gallery {
         grid-template-columns: repeat(2, 1fr);
       }
-      .photo-card:first-child {
-        grid-row: auto;
-      }
-      .photo-card:first-child .img-wrap {
-        min-height: 260px;
-      }
-      .lightbox-nav.prev { left: -48px; }
+.lightbox-nav.prev { left: -48px; }
       .lightbox-nav.next { right: -48px; }
     }
 
@@ -620,7 +604,7 @@
       Un día muy especial
     </div>
     <span class="cake-emoji">🎂</span>
-    <h1>Feliz<em>Cumpleaños</em></h1>
+    <h1>Feliz<em>Cumpleaños Negra</em></h1>
     <p class="subtitle">Por más años y cagadas juntos</p>
   </header>
 
@@ -710,13 +694,6 @@
     </section>
   </div>
 
-  <!-- VIDEO -->
-  <section class="video-section reveal" aria-label="Video">
-    <div class="video-header">
-      <h2>Recuerdos en movimiento</h2>
-      <p>Momentos que quedan para siempre</p>
-    </div>
-
     <div class="video-wrapper">
       <div class="video-badge">
         <span class="dot"></span>
@@ -733,7 +710,6 @@
     <div class="footer-inner reveal">
       <div class="footer-line"></div>
       <div class="footer-hearts">🎉 🎂 🎉</div>
-      <p class="footer-text">Hecho con amor para el mejor cumpleaños del año</p>
       <div class="footer-line"></div>
     </div>
   </footer>
