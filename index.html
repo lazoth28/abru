@@ -432,6 +432,116 @@
         padding: 4px 12px;
       }
     }
+    /* Mejora de centrado y estética */
+.photo-card {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  cursor: pointer;
+  aspect-ratio: 4 / 5;
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; /* 🔥 centra mejor la imagen */
+  transition: transform var(--transition), filter var(--transition);
+}
+
+/* Hover más pro */
+.photo-card:hover img {
+  transform: scale(1.12);
+  filter: brightness(0.9);
+}
+
+/* Overlay suave */
+.photo-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.35));
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.photo-card:hover::after {
+  opacity: 1;
+}
+
+/* Animación entrada */
+.photo-card {
+  animation: fadeUp 0.8s ease both;
+}
+
+.photo-card:nth-child(2) { animation-delay: 0.1s; }
+.photo-card:nth-child(3) { animation-delay: 0.2s; }
+.photo-card:nth-child(4) { animation-delay: 0.3s; }
+.photo-card:nth-child(5) { animation-delay: 0.4s; }
+.photo-card:nth-child(6) { animation-delay: 0.5s; }
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ============================
+   LIGHTBOX (imagen grande)
+============================ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 85%;
+  border-radius: 14px;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.lightbox.active img {
+  transform: scale(1);
+}
+
+/* Botón cerrar */
+.lightbox::after {
+  content: '✕';
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
   </style>
 </head>
 <body>
@@ -509,7 +619,25 @@
     <p>Hecho con <span>♥</span> para el mejor cumpleaños del año</p>
   </footer>
 
+<div class="lightbox" id="lightbox">
+  <img src="" alt="imagen ampliada" />
+</div>
 
+  <script>
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = lightbox.querySelector("img");
+
+  document.querySelectorAll(".photo-card img").forEach(img => {
+    img.addEventListener("click", () => {
+      lightbox.classList.add("active");
+      lightboxImg.src = img.src;
+    });
+  });
+
+  lightbox.addEventListener("click", () => {
+    lightbox.classList.remove("active");
+  });
+</script>
 
 </body>
 </html>
