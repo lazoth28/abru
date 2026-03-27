@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Feliz Cumpleaños 🎂</title>
 
-  <!-- Google Fonts: Playfair Display (display) + DM Sans (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -14,9 +13,6 @@
   />
 
   <style>
-    /* =============================================
-       VARIABLES Y RESET
-    ============================================= */
     *, *::before, *::after {
       margin: 0;
       padding: 0;
@@ -26,8 +22,8 @@
     :root {
       --bg-start:      #fdf6ee;
       --bg-end:        #fce8d8;
-      --accent-1:      #e8866a;   /* terracota cálido */
-      --accent-2:      #c9a96e;   /* dorado apagado   */
+      --accent-1:      #e8866a;
+      --accent-2:      #c9a96e;
       --text-dark:     #2b1f1a;
       --text-mid:      #6b4f3a;
       --text-light:    #fff7f2;
@@ -39,9 +35,6 @@
       --transition:    0.42s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* =============================================
-       FONDO Y LAYOUT BASE
-    ============================================= */
     body {
       min-height: 100vh;
       background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
@@ -50,7 +43,6 @@
       padding: 0 0 80px;
     }
 
-    /* Patrón puntitos decorativos en el fondo */
     body::before {
       content: '';
       position: fixed;
@@ -62,9 +54,6 @@
       z-index: 0;
     }
 
-    /* =============================================
-       HEADER / HERO
-    ============================================= */
     header {
       position: relative;
       z-index: 1;
@@ -72,7 +61,6 @@
       padding: 72px 24px 48px;
     }
 
-    /* Línea decorativa superior */
     header::before {
       content: '';
       display: block;
@@ -83,7 +71,6 @@
       margin: 0 auto 28px;
     }
 
-    /* Emoji / detalle festivo */
     .header-emoji {
       font-size: 3rem;
       display: block;
@@ -96,7 +83,6 @@
       50%       { transform: translateY(-8px); }
     }
 
-    /* Título principal — editable aquí ↓ */
     h1 {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
@@ -111,7 +97,6 @@
       color: var(--accent-1);
     }
 
-    /* Subtítulo — editable aquí ↓ */
     .subtitle {
       margin-top: 14px;
       font-size: clamp(0.95rem, 2vw, 1.15rem);
@@ -121,9 +106,6 @@
       text-transform: uppercase;
     }
 
-    /* =============================================
-       SEPARADOR DECORATIVO
-    ============================================= */
     .divider {
       position: relative;
       z-index: 1;
@@ -152,36 +134,24 @@
       font-size: 1.2rem;
     }
 
-    /* =============================================
-       GALERÍA (GRID)
-    ============================================= */
     .gallery {
       position: relative;
       z-index: 1;
       display: grid;
-
-      /* 3 columnas en escritorio, 2 en tablet, 1 en móvil */
       grid-template-columns: repeat(3, 1fr);
       gap: 28px;
-
       max-width: 1100px;
       margin: 0 auto;
       padding: 0 32px;
     }
 
-    /* =============================================
-       TARJETA DE FOTO
-    ============================================= */
     .photo-card {
       position: relative;
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--card-shadow);
       cursor: pointer;
-
-      /* Proporción 4:5 (tipo foto de retrato) */
       aspect-ratio: 4 / 5;
-
       transition: transform var(--transition), box-shadow var(--transition);
     }
 
@@ -190,7 +160,6 @@
       box-shadow: var(--card-shadow-h);
     }
 
-    /* La imagen de placeholder — reemplazar src="" por la URL real */
     .photo-card img {
       width: 100%;
       height: 100%;
@@ -203,7 +172,6 @@
       transform: scale(1.08);
     }
 
-    /* Overlay degradado que aparece en hover */
     .photo-card .overlay {
       position: absolute;
       inset: 0;
@@ -220,7 +188,6 @@
       opacity: 1;
     }
 
-    /* Texto de la descripción — editable en cada tarjeta ↓ */
     .overlay .desc-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.05rem;
@@ -250,7 +217,6 @@
       opacity: 1;
     }
 
-    /* Etiqueta decorativa (corazón / estrella) en la esquina */
     .photo-card .badge {
       position: absolute;
       top: 14px;
@@ -272,6 +238,151 @@
     .photo-card:hover .badge {
       opacity: 1;
       transform: scale(1);
+    }
+
+    /* =============================================
+       SECCIÓN DE VIDEO
+    ============================================= */
+    .video-section {
+      position: relative;
+      z-index: 1;
+      margin-top: 72px;
+      width: 100%;
+    }
+
+    /* Separador igual al de arriba, centrado */
+    .video-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 0 auto 40px;
+      width: fit-content;
+    }
+
+    .video-divider::before,
+    .video-divider::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-2));
+    }
+
+    .video-divider::after {
+      background: linear-gradient(90deg, var(--accent-2), transparent);
+    }
+
+    .video-divider-icon {
+      font-size: 1.2rem;
+    }
+
+    /* Contenedor del video — ocupa todo el ancho */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      /* Mantiene proporción 16:9 */
+      aspect-ratio: 16 / 9;
+      background: var(--text-dark);
+      overflow: hidden;
+      box-shadow: 0 12px 56px rgba(80, 40, 20, 0.22);
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Etiqueta decorativa sobre el video */
+    .video-label {
+      position: absolute;
+      top: 20px;
+      left: 28px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 247, 242, 0.14);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 247, 242, 0.22);
+      border-radius: 99px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .video-label .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-1);
+      animation: pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1);   }
+      50%       { opacity: 0.5; transform: scale(0.75); }
+    }
+
+    /* Estado vacío: cuando no hay video cargado */
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: linear-gradient(135deg, #2b1f1a 0%, #3d2a22 100%);
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+
+    .video-placeholder:hover {
+      background: linear-gradient(135deg, #3d2a22 0%, #4e3429 100%);
+    }
+
+    .video-placeholder .play-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(232, 134, 106, 0.18);
+      border: 2px solid rgba(232, 134, 106, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--transition), background var(--transition);
+    }
+
+    .video-placeholder:hover .play-icon {
+      transform: scale(1.08);
+      background: rgba(232, 134, 106, 0.28);
+    }
+
+    .video-placeholder .play-icon svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--accent-1);
+      margin-left: 4px; /* compensar visualmente el triángulo */
+    }
+
+    .video-placeholder p {
+      font-size: 0.88rem;
+      color: rgba(255, 247, 242, 0.55);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    /* Input de archivo oculto */
+    #videoInput {
+      display: none;
     }
 
     /* =============================================
@@ -314,98 +425,124 @@
       .photo-card {
         aspect-ratio: 4 / 3;
       }
+      .video-label {
+        top: 12px;
+        left: 16px;
+        font-size: 0.72rem;
+        padding: 4px 12px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- =============================================
-       ENCABEZADO
-       Editar: emoji, título y subtítulo
-  ============================================= -->
   <header>
     <span class="header-emoji">🎂</span>
     <h1>Feliz <em>Cumpleaños</em></h1>
-    <!-- Subtítulo editable ↓ -->
     <p class="subtitle">Un año mas y por cagadas juntos</p>
   </header>
 
-  <!-- Separador decorativo -->
   <div class="divider">
     <span class="divider-icon">✦</span>
   </div>
 
-  <!-- =============================================
-       GALERÍA
-       Para reemplazar imágenes: cambiar el atributo src=""
-       Para editar descripciones: cambiar .desc-title y .desc-text
-       Para cambiar el emoji del badge: cambiar el contenido del .badge
-  ============================================= -->
   <section class="gallery" aria-label="Galería de fotos">
 
-    <!-- ── FOTO 1 ── -->
     <article class="photo-card">
-      <!-- Reemplazar src con tu imagen real -->
-      <img
-        src="1.jpeg"
-        alt="Foto 1"
-        loading="lazy"
-      />
+      <img src="1.jpeg" alt="Foto 1" loading="lazy" />
     </article>
 
-    <!-- ── FOTO 2 ── -->
     <article class="photo-card">
-      <img
-        src="2.jpeg"
-        alt="Foto 2"
-        loading="lazy"
-      />
+      <img src="2.jpeg" alt="Foto 2" loading="lazy" />
     </article>
 
-    <!-- ── FOTO 3 ── -->
     <article class="photo-card">
-      <img
-        src="3.jpeg"
-        alt="Foto 3"
-        loading="lazy"
-      />
+      <img src="3.jpeg" alt="Foto 3" loading="lazy" />
     </article>
 
-    <!-- ── FOTO 4 ── -->
     <article class="photo-card">
-      <img
-        src="4.jpeg"
-        alt="Foto 4"
-        loading="lazy"
-      />
+      <img src="4.jpeg" alt="Foto 4" loading="lazy" />
     </article>
 
-    <!-- ── FOTO 5 ── -->
     <article class="photo-card">
-      <img
-        src="5.jpeg"
-        alt="Foto 5"
-        loading="lazy"
-      />
+      <img src="5.jpeg" alt="Foto 5" loading="lazy" />
     </article>
 
-    <!-- ── FOTO 6 ── -->
     <article class="photo-card">
-      <img
-        src="7.jpeg"
-        alt="Foto 6"
-        loading="lazy"
-      />
-      <div class="overlay">
+      <img src="7.jpeg" alt="Foto 6" loading="lazy" />
     </article>
 
   </section>
+
   <!-- =============================================
-       PIE DE PÁGINA — editable ↓
+       SECCIÓN DE VIDEO
+       — Si el video ya está en el servidor, reemplazar
+         el <video> con src="tu-video.mp4" y eliminar
+         el placeholder y el input.
+       — Si querés que el usuario elija el archivo
+         localmente, dejar el placeholder tal cual.
   ============================================= -->
+  <section class="video-section" aria-label="Video">
+
+    <div class="video-divider">
+      <span class="video-divider-icon">🎞</span>
+    </div>
+
+    <div class="video-wrapper" id="videoWrapper">
+
+      <!-- Etiqueta decorativa visible cuando hay video -->
+      <div class="video-label" id="videoLabel" style="display:none;">
+        <span class="dot"></span>
+        Recuerdos
+      </div>
+
+      <!-- Video (oculto hasta que se cargue un archivo) -->
+      <video
+        id="videoPlayer"
+        controls
+        playsinline
+        style="display:none;"
+      >
+        <!--
+          Si el video ya está en el servidor, usá:
+          <source src="video.mp4" type="video/mp4" />
+          y eliminá el placeholder de abajo.
+        -->
+      </video>
+
+      <source src="8.mp4" type="8/mp4 />
+    
+      <!-- Input oculto para seleccionar el archivo -->
+      <input type="file" id="videoInput" accept="video/*" />
+
+    </div>
+
+  </section>
+
   <footer>
     <p>Hecho con <span>♥</span> para el mejor cumpleaños del año</p>
   </footer>
+
+  <script>
+    const input       = document.getElementById('videoInput');
+    const player      = document.getElementById('videoPlayer');
+    const placeholder = document.getElementById('videoPlaceholder');
+    const label       = document.getElementById('videoLabel');
+
+    input.addEventListener('change', function () {
+      const file = this.files[0];
+      if (!file) return;
+
+      const url = URL.createObjectURL(file);
+      player.src = url;
+
+      placeholder.style.display = 'none';
+      player.style.display      = 'block';
+      label.style.display       = 'flex';
+
+      player.play();
+    });
+  </script>
 
 </body>
 </html>
