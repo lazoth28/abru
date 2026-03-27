@@ -1,142 +1,515 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Feliz Cumpleaños 🎂</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feliz Cumpleaños 🎂</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
 
-<style>
-/* ====== LO QUE YA TENÍAS ====== */
-*{margin:0;padding:0;box-sizing:border-box;}
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body{
-  min-height:100vh;
-  background:linear-gradient(135deg,#fdf6ee,#fce8d8);
-  font-family:'DM Sans',sans-serif;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
+    :root {
+      --bg-start:      #fdf6ee;
+      --bg-end:        #fce8d8;
+      --accent-1:      #e8866a;
+      --accent-2:      #c9a96e;
+      --text-dark:     #2b1f1a;
+      --text-mid:      #6b4f3a;
+      --text-light:    #fff7f2;
+      --overlay-start: rgba(43, 31, 26, 0.0);
+      --overlay-end:   rgba(43, 31, 26, 0.78);
+      --card-shadow:   0 8px 32px rgba(80, 40, 20, 0.13);
+      --card-shadow-h: 0 16px 48px rgba(80, 40, 20, 0.26);
+      --radius:        18px;
+      --transition:    0.42s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-/* ====== GALERÍA CENTRADA ====== */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:28px;
-  max-width:1100px;
-  width:100%;
-  padding:20px;
-  justify-content:center;
-}
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text-dark);
+      padding: 0 0 80px;
+    }
 
-.photo-card{
-  border-radius:18px;
-  overflow:hidden;
-  cursor:pointer;
-  transition:.4s;
-}
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, var(--accent-2) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-.photo-card img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-  transition:.4s;
-}
+    header {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 72px 24px 48px;
+    }
 
-.photo-card:hover img{
-  transform:scale(1.05);
-}
+    header::before {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+      border-radius: 99px;
+      margin: 0 auto 28px;
+    }
 
-/* ====== MODAL ====== */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.85);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  z-index:999;
-}
+    .header-emoji {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 10px;
+      animation: float 3s ease-in-out infinite;
+    }
 
-.modal.active{
-  opacity:1;
-  pointer-events:auto;
-}
+    @keyframes float {
+      0%, 100% { transform: translateY(0);    }
+      50%       { transform: translateY(-8px); }
+    }
 
-.modal img{
-  max-width:90%;
-  max-height:90%;
-  border-radius:16px;
-  transform:scale(.8);
-  transition:.3s;
-}
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      color: var(--text-dark);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
 
-.modal.active img{
-  transform:scale(1);
-}
+    h1 em {
+      font-style: italic;
+      color: var(--accent-1);
+    }
 
-/* cerrar */
-.modal::after{
-  content:"✕";
-  position:absolute;
-  top:20px;
-  right:30px;
-  font-size:2rem;
-  color:white;
-  cursor:pointer;
-}
+    .subtitle {
+      margin-top: 14px;
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: var(--text-mid);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
 
-/* responsive */
-@media(max-width:900px){
-  .gallery{grid-template-columns:repeat(2,1fr);}
-}
-@media(max-width:500px){
-  .gallery{grid-template-columns:1fr;}
-}
-</style>
+    .divider {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 0 auto 56px;
+      width: fit-content;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-2));
+    }
+
+    .divider::after {
+      background: linear-gradient(90deg, var(--accent-2), transparent);
+    }
+
+    .divider-icon {
+      font-size: 1.2rem;
+    }
+
+    .gallery {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .photo-card {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      cursor: pointer;
+      aspect-ratio: 4 / 5;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .photo-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: var(--card-shadow-h);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--transition);
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .photo-card .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--overlay-end) 0%, var(--overlay-start) 60%);
+      opacity: 0;
+      transition: opacity var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px 20px;
+    }
+
+    .photo-card:hover .overlay {
+      opacity: 1;
+    }
+
+    .overlay .desc-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-light);
+      margin-bottom: 4px;
+      transform: translateY(8px);
+      opacity: 0;
+      transition: transform var(--transition), opacity var(--transition);
+      transition-delay: 0.05s;
+    }
+
+    .overlay .desc-text {
+      font-size: 0.82rem;
+      color: rgba(255,247,242,0.82);
+      font-weight: 300;
+      line-height: 1.5;
+      transform: translateY(8px);
+      opacity: 0;
+      transition: transform var(--transition), opacity var(--transition);
+      transition-delay: 0.1s;
+    }
+
+    .photo-card:hover .overlay .desc-title,
+    .photo-card:hover .overlay .desc-text {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .photo-card .badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      background: rgba(255,247,242,0.92);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity var(--transition), transform var(--transition);
+    }
+
+    .photo-card:hover .badge {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* =============================================
+       SECCIÓN DE VIDEO
+    ============================================= */
+    .video-section {
+      position: relative;
+      z-index: 1;
+      margin-top: 72px;
+      width: 100%;
+    }
+
+    /* Separador igual al de arriba, centrado */
+    .video-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 0 auto 40px;
+      width: fit-content;
+    }
+
+    .video-divider::before,
+    .video-divider::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-2));
+    }
+
+    .video-divider::after {
+      background: linear-gradient(90deg, var(--accent-2), transparent);
+    }
+
+    .video-divider-icon {
+      font-size: 1.2rem;
+    }
+
+    /* Contenedor del video — ocupa todo el ancho */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      /* Mantiene proporción 16:9 */
+      aspect-ratio: 16 / 9;
+      background: var(--text-dark);
+      overflow: hidden;
+      box-shadow: 0 12px 56px rgba(80, 40, 20, 0.22);
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Etiqueta decorativa sobre el video */
+    .video-label {
+      position: absolute;
+      top: 20px;
+      left: 28px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 247, 242, 0.14);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 247, 242, 0.22);
+      border-radius: 99px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .video-label .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-1);
+      animation: pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1);   }
+      50%       { opacity: 0.5; transform: scale(0.75); }
+    }
+
+    /* Estado vacío: cuando no hay video cargado */
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: linear-gradient(135deg, #2b1f1a 0%, #3d2a22 100%);
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+
+    .video-placeholder:hover {
+      background: linear-gradient(135deg, #3d2a22 0%, #4e3429 100%);
+    }
+
+    .video-placeholder .play-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(232, 134, 106, 0.18);
+      border: 2px solid rgba(232, 134, 106, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--transition), background var(--transition);
+    }
+
+    .video-placeholder:hover .play-icon {
+      transform: scale(1.08);
+      background: rgba(232, 134, 106, 0.28);
+    }
+
+    .video-placeholder .play-icon svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--accent-1);
+      margin-left: 4px; /* compensar visualmente el triángulo */
+    }
+
+    .video-placeholder p {
+      font-size: 0.88rem;
+      color: rgba(255, 247, 242, 0.55);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    /* Input de archivo oculto */
+    #videoInput {
+      display: none;
+    }
+
+    /* =============================================
+       PIE DE PÁGINA
+    ============================================= */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-top: 72px;
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      letter-spacing: 0.05em;
+    }
+
+    footer span {
+      color: var(--accent-1);
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 900px) {
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 0 20px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      header {
+        padding: 48px 20px 36px;
+      }
+      .gallery {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 0 16px;
+      }
+      .photo-card {
+        aspect-ratio: 4 / 3;
+      }
+      .video-label {
+        top: 12px;
+        left: 16px;
+        font-size: 0.72rem;
+        padding: 4px 12px;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<h1 style="margin:40px 0;">Feliz Cumpleaños 🎂</h1>
+  <header>
+    <span class="header-emoji">🎂</span>
+    <h1>Feliz <em>Cumpleaños</em></h1>
+    <p class="subtitle">Un año mas y por cagadas juntos</p>
+  </header>
 
-<section class="gallery">
-  <article class="photo-card"><img src="1.jpeg"></article>
-  <article class="photo-card"><img src="2.jpeg"></article>
-  <article class="photo-card"><img src="3.jpeg"></article>
-  <article class="photo-card"><img src="4.jpeg"></article>
-  <article class="photo-card"><img src="5.jpeg"></article>
-  <article class="photo-card"><img src="7.jpeg"></article>
-</section>
+  <div class="divider">
+    <span class="divider-icon">✦</span>
+  </div>
 
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <img id="modalImg">
-</div>
+  <section class="gallery" aria-label="Galería de fotos">
 
-<script>
-const modal = document.getElementById("modal");
-const modalImg = document.getElementById("modalImg");
+    <article class="photo-card">
+      <img src="1.jpeg" alt="Foto 1" loading="lazy" />
+    </article>
 
-document.querySelectorAll(".photo-card img").forEach(img => {
-  img.addEventListener("click", () => {
-    modal.classList.add("active");
-    modalImg.src = img.src;
-  });
-});
+    <article class="photo-card">
+      <img src="2.jpeg" alt="Foto 2" loading="lazy" />
+    </article>
 
-modal.addEventListener("click", () => {
-  modal.classList.remove("active");
-});
-</script>
+    <article class="photo-card">
+      <img src="3.jpeg" alt="Foto 3" loading="lazy" />
+    </article>
+
+    <article class="photo-card">
+      <img src="4.jpeg" alt="Foto 4" loading="lazy" />
+    </article>
+
+    <article class="photo-card">
+      <img src="5.jpeg" alt="Foto 5" loading="lazy" />
+    </article>
+
+    <article class="photo-card">
+      <img src="7.jpeg" alt="Foto 6" loading="lazy" />
+    </article>
+
+  </section>
+
+  <!-- =============================================
+       SECCIÓN DE VIDEO
+       — Si el video ya está en el servidor, reemplazar
+         el <video> con src="tu-video.mp4" y eliminar
+         el placeholder y el input.
+       — Si querés que el usuario elija el archivo
+         localmente, dejar el placeholder tal cual.
+  ============================================= -->
+  <section class="video-section" aria-label="Video">
+
+    <div class="video-divider">
+      <span class="video-divider-icon">🎞</span>
+    </div>
+
+    <div class="video-wrapper" id="videoWrapper">
+
+      <!-- Etiqueta decorativa -->
+      <div class="video-label">
+        <span class="dot"></span>
+        Recuerdos
+      </div>
+
+      <!-- Reemplazá "video.mp4" por el nombre de tu archivo -->
+      <video controls playsinline>
+        <source src="video.mp4" type="video/mp4" />
+      </video>
+
+    </div>
+
+  </section>
+
+  <footer>
+    <p>Hecho con <span>♥</span> para el mejor cumpleaños del año</p>
+  </footer>
+
+
 
 </body>
 </html>
