@@ -490,30 +490,16 @@
 
     <div class="video-wrapper" id="videoWrapper">
 
-      <!-- Etiqueta decorativa visible cuando hay video -->
-      <div class="video-label" id="videoLabel" style="display:none;">
+      <!-- Etiqueta decorativa -->
+      <div class="video-label">
         <span class="dot"></span>
         Recuerdos
       </div>
 
-      <!-- Video (oculto hasta que se cargue un archivo) -->
-      <video
-        id="videoPlayer"
-        controls
-        playsinline
-        style="display:none;"
-      >
-        <!--
-          Si el video ya está en el servidor, usá:
-          <source src="video.mp4" type="video/mp4" />
-          y eliminá el placeholder de abajo.
-        -->
+      <!-- Reemplazá "video.mp4" por el nombre de tu archivo -->
+      <video controls playsinline>
+        <source src="8.mp4" type="video/mp4" />
       </video>
-
-      <source src="8.mp4" type="8/mp4 />
-    
-      <!-- Input oculto para seleccionar el archivo -->
-      <input type="file" id="videoInput" accept="video/*" />
 
     </div>
 
@@ -523,26 +509,7 @@
     <p>Hecho con <span>♥</span> para el mejor cumpleaños del año</p>
   </footer>
 
-  <script>
-    const input       = document.getElementById('videoInput');
-    const player      = document.getElementById('videoPlayer');
-    const placeholder = document.getElementById('videoPlaceholder');
-    const label       = document.getElementById('videoLabel');
 
-    input.addEventListener('change', function () {
-      const file = this.files[0];
-      if (!file) return;
-
-      const url = URL.createObjectURL(file);
-      player.src = url;
-
-      placeholder.style.display = 'none';
-      player.style.display      = 'block';
-      label.style.display       = 'flex';
-
-      player.play();
-    });
-  </script>
 
 </body>
 </html>
